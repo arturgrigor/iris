@@ -45,27 +45,14 @@ extension NSURL {
             return nil
         }
 
-        /*
-            Original URL: https://assets.imgix.net/docs/road-sm.jpg?fit=min&h=200&w=500
-        
-            If the `imageOptions.queryItems` == ImageOptions(width: 640, height: 480, fit: .Clip) then the
-            new URL would be: https://assets.imgix.net/docs/road-sm.jpg?fit=min&h=200&w=500&fit=clip&w=640&h=480
-        
-            The lines below will replace the `existingQueryItems` with the `imageOptions.queryItems`.
-            Note: Don't use the `==` from `NSURLQueryItem` because that will compare if the `name` and `value` properties
-            are equal, not just the `name`.
-        */
-        let newQueryItems = imageOptions.queryItems
-        let existingQueryItems = components.queryItems ?? []
-        let queryItems = newQueryItems + existingQueryItems.filter {
-            for q in newQueryItems {
-                if q.name == $0.name {
-                    return false
-                }
-            }
-            return true
-        }
-        components.queryItems = queryItems
+        let combinedQueryItems = imageOptions.queryItems + (components.queryItems ?? [])
+
+        components.queryItems = combinedQueryItems
+            .reduce([NSURLQueryItem](), combine: { array, element in
+                if array.contains({ $0.name == element.name }) { return array }
+                return array + CollectionOfOne(element)
+            })
+            .sort({ $0.name < $1.name })
 
         return components.URL
     }
