@@ -202,7 +202,7 @@ public struct ImageOptions: Equatable {
      - seealso:
      [Imgix API Reference](https://www.imgix.com/docs/reference/size#param-w)
     */
-    public var width: Int?
+    public var width: CGFloat?
 
     /**
      The height of the output image.
@@ -210,7 +210,7 @@ public struct ImageOptions: Equatable {
      - seealso:
      [Imgix API Reference](https://www.imgix.com/docs/reference/size#param-h)
     */
-    public var height: Int?
+    public var height: CGFloat?
 
     /**
      The device pixel ratio to be used.
@@ -320,7 +320,7 @@ public struct ImageOptions: Equatable {
 
     // MARK: - Initializers
 
-    public init(format: Format? = nil, width: Int? = nil, height: Int? = nil, scale: CGFloat? = nil, fit: FitMode? = nil, crop: [CropMode]? = nil) {
+    public init(format: Format? = nil, width: CGFloat? = nil, height: CGFloat? = nil, scale: CGFloat? = nil, fit: FitMode? = nil, crop: [CropMode]? = nil) {
         self.format = format
         self.width = width
         self.height = height
@@ -388,11 +388,11 @@ public struct ImageOptions: Equatable {
         // Size Properties
 
         if let value = width {
-            items.append(NSURLQueryItem(name: "w", value: String(value)))
+            items.append(NSURLQueryItem(name: "w", value: String(format: "%.0f", value)))
         }
 
         if let value = height {
-            items.append(NSURLQueryItem(name: "h", value: String(value)))
+            items.append(NSURLQueryItem(name: "h", value: String(format: "%.0f", value)))
         }
 
         if let value = fit {
