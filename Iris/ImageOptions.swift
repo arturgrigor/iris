@@ -116,11 +116,13 @@ public struct ImageOptions {
         // Size Properties
 
         if let value = width {
-            items.append(queryItem(forKey: .width, value: String(format: "%.0f", value)))
+            let string = value > 1.0 ? String(describing: UInt(value)) : String(describing: value)
+            items.append(queryItem(forKey: .width, value: string))
         }
 
         if let value = height {
-            items.append(queryItem(forKey: .height, value: String(format: "%.0f", value)))
+            let string = value > 1.0 ? String(describing: UInt(value)) : String(describing: value)
+            items.append(queryItem(forKey: .height, value: string))
         }
 
         if let value = fit {
