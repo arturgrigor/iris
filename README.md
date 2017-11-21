@@ -10,17 +10,21 @@ A Swift framework for working with Imgix.
 
 | Xcode  | Swift  | iOS    | tvOS   | macOS  |
 | :---:  | :---:  | :---:  | :---:  | :---:  |
-| 8.0    | 2.3    | 8.0    | 9.0    | 10.10  |
+| 9.0    | 4.0    | 8.0    | 9.0    | 10.10  |
 
 ## Installation
 
 ### [Carthage](https://github.com/carthage/carthage)
 
-> `github "hodinkee/iris"`
+```
+github "hodinkee/Iris" ~> 3.0
+```
 
 ### [CocoaPods](https://github.com/cocoapods/cocoapods)
 
-> `pod 'Iris'`
+```
+pod "Iris", "~> 3.0"
+```
 
 ## Usage
 
